@@ -2,11 +2,13 @@ package com.example.my_telegram
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.inputmethodservice.InputMethodService
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.example.my_telegram.activites.RegisterActivity
 import com.example.my_telegram.databinding.ActivityMainBinding
 import com.example.my_telegram.models.User
@@ -29,10 +31,16 @@ class MainActivity : AppCompatActivity() {
         APP_ACTIVITY = this
         initFirebase()
         initUser {
+            initContacts()
             initFields()
             initFunc()
         }
+    }
 
+    private fun initContacts() {
+        if (checkPermission(READ_CONTACTS)){
+            showToast("Чтение контактов")
+        }
     }
 
     private fun initFunc() {
@@ -63,4 +71,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (ContextCompat.checkSelfPermission(APP_ACTIVITY, READ_CONTACTS)==PackageManager.PERMISSION_GRANTED){
+            initContacts()
+        }
+    }
 }
