@@ -43,8 +43,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
     private fun initFunc() {
         if (AUTH.currentUser != null) {
             setSupportActionBar(mToolbar)
@@ -55,7 +53,6 @@ class MainActivity : AppCompatActivity() {
             replaceActivity(RegisterActivity())
         }
     }
-
 
     private fun initFields() {
         mToolbar = mBinding.mainToolbar
