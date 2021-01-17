@@ -98,7 +98,7 @@ fun initContacts() {
 }
 
 fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
-    REF_DATABASE_ROOT.child(NODE_PHONES).addListenerForSingleValueEvent(AppValueEventListener {
+    REF_DATABASE_ROOT.child(NODE_PHONES).addListenerForSingleValueEvent(AppValueEventListener { it ->
         it.children.forEach { snapshot ->
             arrayContacts.forEach { contact ->
                 if (snapshot.key == contact.phone) {
